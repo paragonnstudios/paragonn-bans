@@ -1,0 +1,147 @@
+version: 2.0
+
+lockdown: false
+lockdown-reason: ""
+
+auto-dupeip: false
+
+history-expirey-minutes: 10080 #1 semana.
+
+#Seção de configuração de advertências
+warnings:
+    #Por quanto tempo as advertências devem 'expirar'?
+    #Defina como 0 para nunca (... Honestamente, acredito que você deveria perdoá-los após um mês no máximo...)
+    expirey-in-minutes: 4320
+    # Esta seção parece assustadora, mas não é... Se estiver com medo,
+    # Apenas leia o conteúdo e pule os comentários, a menos que queira fazer coisas mais avançadas.
+
+    #Quais ações devemos tomar quando um jogador recebe uma advertência?
+    #O formato é:
+    #<número de advertências>: 'comandos a executar;separados por ponto e vírgula'
+    #Exemplos:
+    #actions:
+    #   1: 'msg {name} Você foi advertido!'
+    #   2: 'strike {name};msg {name} Você irritou Zeus!'
+    #   3: 'tempban {name} 1 hour Atingiu o Máximo de Advertências. Motivos:\n{reasons}\nPor: {banner}'
+    #Variáveis permitidas:
+    #{name} o nome do jogador
+    #{ip} o último IP conhecido do jogador
+    #{reason} o último motivo pelo qual o jogador foi advertido
+    #{reasons} todos os motivos (separados por novas linhas) para esta punição. Exemplo:
+    #Motivo1: "Griefing"
+    #Motivo2: "Spam"
+    #Motivo3: "Pedindo itens"
+    #Agora, se eu fizesse
+    #3: 'tempban {name} 1 hour Atingiu o Máximo de Advertências:\n{reasons}'
+    #desconectaria o usuário com esta mensagem:
+    #-------------------------------------
+    #Você foi Temporariamente Banido por:
+    #'Atingiu o Máximo de Advertências:
+    #Griefing
+    #Spam
+    #Pedindo itens'
+    #Por Console. Expira em 1 hora
+    #-------------------------------------
+    #Se o comando começar com /, então o executor rodará o comando
+    #Caso contrário, o comando será executado pelo CONSOLE.
+    #Você pode querer usar -s nesses comandos (Para evitar que mensagens sejam enviadas aos jogadores)
+    actions:
+        2: '/kick {name} Aviso Final: \n{reason}'
+        3: '/tempban {name} 1 hour Reached Max Warnings:\n{reasons}'
+    #Após receber este número de advertências, todas serão deletadas.
+    #Se 'actions' tiver uma ação para um número maior que este, a ação nunca será
+    #executada... Pois isso redefine para 0
+    #Se definido como <= 0, será ignorado e as advertências nunca serão resetadas.
+    max: 3
+
+#Devemos verificar se estamos rodando a versão mais recente do PBans?
+#Isso NÃO atualiza automaticamente, apenas notifica no console quando
+#o servidor iniciar se houver uma nova versão disponível.
+#Não funciona nas versões v1.9 e v2.0.
+update-check: true
+
+#Aceita códigos de cor. (v1.2)
+default-reason: "Misconduct"
+#O appeal-message aceita códigos de cor, como &a e &4... Defina como "" para desativar. Aceita quebras de linha, basta adicionar \n onde quiser uma nova linha.
+appeal-message: "No appeal website set :("
+
+#As duas cores usadas que a EQUIPE verá.
+#Geralmente, primary = texto, e secondary = variáveis (Como motivo do ban)
+#0-9,a-f são válidos. Qualquer ChatColor do Bukkit também é válido (Ex: RED, AQUA, DARK_GRAY)
+color:
+    primary: f
+    secondary: a
+
+#Tempo máximo de banimento temporário, em segundos. 604800 é uma semana.
+MaxTempbanTime: 604800
+
+
+#Isso se aplica a kick, ban e qualquer outra coisa.
+kick-colors:
+    #0-9,a-f são válidos. Qualquer ChatColor do Bukkit também é válido (Ex: RED, AQUA, DARK_GRAY)
+    reason: f #"Misconduct"
+    regular: f #"By"
+    banner: f #"Netherfoam"
+    time: f #4 horas e 59 minutos restantes.
+
+
+#Alguns plugins registram seus comandos antes de nós (Ex: outros plugins de ban/kick).
+#Esta opção permite que os usuários tentem forçar o PBans a assumir esses comandos já registrados.
+override-commands: true
+
+chat-commands:
+    - me
+    - say
+
+#Devemos notificar jogadores com maxbans.notify sempre que um jogador banido tentar (sem sucesso) entrar?
+notify: true
+#Devemos verificar se os nomes contêm apenas as letras (A-Z,a-z,0-9 e _) e são válidos?
+filter-names: true
+
+#Devemos usar a lista negra de DNS?
+dnsbl:
+    #Devemos usar isso? Definir como false desativa o DNSBL completamente.
+    use: true
+    #Os servidores DNSBL que usaremos para consulta. Mais servidores = Resultados mais lentos.
+    #Cada servidor leva aproximadamente 4 segundos para responder. Use http://dnsbl.info para encontrar
+    #mais servidores, se desejar.
+    #Os resultados do DNSBL ficam em cache por 1 semana e então expiram (São deletados).
+    #É assim que o PBans verifica IPs de proxy
+    # 1.  Já consultamos esse IP no DNSBL antes e ele não expirou? Se sim, vá para o passo 3
+    # 2.  Inicia consulta de IP, isso leva alguns segundos...
+    # 3.  Se o IP não for um proxy, pare a verificação, o acesso é permitido, não prossiga para o passo 4.
+    # 4.  Tome a ação apropriada (Kick, notificar) se houver.
+    servers:
+        - bl.spamcop.net
+        - sbl.spamhaus.org
+    #Devemos notificar jogadores com maxbans.notify quando um jogador entrar com um IP de proxy?
+    notify: true
+    #Devemos expulsar jogadores que forem detectados com IPs de proxy?
+    kick: false
+
+bungee: false
+# Sync é um recurso avançado do PBans.
+# Aplica-se apenas a donos de servidores que desejam BANIR/etc jogadores via PÁGINA WEB, como um Script PHP
+# Ou donos que querem que dois servidores compartilhem a MESMA lista de banimentos!
+# Esta opção está em BETA! Não me responsabilizo por falhas, mas farei o possível para corrigi-las.
+sync:
+    #Devemos usar o Sync? Definir como false o desativa completamente :)
+    use: false
+    #Este servidor é o servidor Sync? Caso contrário, é um cliente.
+    server: false
+    #O host do servidor Sync, caso este seja um cliente.
+    host: 127.0.0.1
+    #A porta do servidor Sync.
+    port: 2711
+    #A senha necessária para conectar.
+    pass: ChangeMeNow
+    debug: false
+
+database:
+    mysql: false
+    user: root
+    pass: passwd
+    host: localhost
+    port: 3306
+    name: maxbans
+    read-only: false

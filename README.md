@@ -1,101 +1,183 @@
-MaxBans
-=======
+<div align="center">
 
-MaxBans is a project I've been writing for my server, MaxGamer. I struggled to find a banning plugin that wasn't a joke, and the good plugins were all designed for Premium servers anyway. Nothing gave us the tools that SHOULD have been out there - Like temp mutes, temp IP bans, duplicate IP lookups, and good autocompletion!
+# 🛡️ Paragonn Bans
 
-It is thoroughly tested on an Offline-Mode server, so you can bet it's rock solid and feather light!
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.6%2B-brightgreen?style=for-the-badge&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA)](https://www.minecraft.net/)
+[![Java](https://img.shields.io/badge/Java-8%2B-red?style=for-the-badge&logo=openjdk&logoColor=white)](https://openjdk.org/)
+[![Spigot](https://img.shields.io/badge/Spigot-Compatible-orange?style=for-the-badge)](https://www.spigotmc.org/)
+[![Bukkit](https://img.shields.io/badge/Bukkit-Compatible-yellow?style=for-the-badge)](https://dev.bukkit.org/)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+[![VisualVM](https://img.shields.io/badge/Profiler-VisualVM-purple?style=for-the-badge&logo=visualstudio&logoColor=white)](https://visualvm.github.io/)
 
-Dependencies are in lib/ folder, and also requires CraftBukkit or Spigot which are freely available online (Last compiled on Bukkit for Minecraft 1.6)
+**Um plugin de banimento robusto, leve e completo para servidores Minecraft.**  
+*Baseado no PBans — reescrito, otimizado e adaptado para o Paragonn Network.*
 
-Databases
-=======
+</div>
 
-MySQL
-SQLite (Flatfile)
+---
 
+## 📋 Sobre
 
-Best Features
-=======
+O **Paragonn Bans** nasceu da necessidade de ter uma solução de moderação que realmente funcionasse — sem bugs, sem travamentos, sem complicação. A maioria dos plugins de ban disponíveis ou eram uma piada, ou foram feitos exclusivamente para servidores Premium.
 
-Here are the top ten features of MaxBans over other banning plugins:
+Este plugin foi construído e testado extensivamente em servidores **Offline-Mode**, garantindo que seja sólido como pedra e leve como pena. Ele traz de volta tudo que deveria existir nativamente no Minecraft: mutes temporários, banimentos por IP, detecção de IPs duplicados, autocompletar de nomes e muito mais.
 
-Full server lockdown - Prevent anyone from joining with a custom message (Such as bot attacks)
-Offline player name auto completion
-Warnings system
-Duplicate IP detection
-DNSBL lookups to stop proxys!
-Multiline kick messages! No more running off the screen!
-Notifications when a banned player tries to join!
-All times are relative! (Eg. "You're banned for 4 minutes 6 seconds", not "You're banned til 5:43pm CST")
-Customize every colour!
-Block commands like /me when muted!
+> 🔬 **Profiling de performance** realizado com **[VisualVM](https://visualvm.github.io/)** — o Java Profiler utilizado para garantir que o plugin não impacte o desempenho do servidor.
 
-Commands
-=======
+---
 
-- /unban &lt;name or IP>
-- /ban &lt;name or IP> &lt;reason>
-- /ipban &lt;name or IP> &lt;reason>
-- /tempban &lt;name or IP> &lt;number> &lt;minutes|hours|days|weeks|etc> &lt;reason>
-- /tempipban &lt;name or IP> &lt;number> &lt;minutes|hours|days|weeks|etc> &lt;reason>
-- /mute &lt;name>
-- /tempmute &lt;name> &lt;number> &lt;minutes|hours|days|weeks|etc>
-- /kick &lt;name or * for everyone>
-- /checkip &lt;name>
-- /dupeip &lt;name or IP>
-- /checkban &lt;name or IP>
-- /warn &lt;name> &lt;reason>
-- /clearwarnings &lt;name> &lt;reason>
-- /unwarn &lt;name> - Removes a players most recent warning
-- /unmute &lt;name>
-- /history [name] [number of records] - Displays a history of bans, kicks, mutes & more dealt
-- /mbreload - Reloads the plugin
-- /mbdebug - Outputs debug information for me if you're having issues!
-- /mbwhitelist &lt;name> - Allows the given user to bypass IP bans (Not regular bans! Eg, use for players with siblings who need to be IP banned)
-- /ipreport - Basically, a mass /dupeip, on everyone who is online
-- /lockdown [reason]
-- /forcespawn - Teleports someone to the spawn (Twice, so /back won't work)
-- /mbreload - Reloads maxbans
-- /mbimport - Imports vanilla minecraft (And others) bans.
-- /mbexport - Export bans to vanilla, MySQL or SQLite databases. (Allows swapping SQLite <-> MySQL), and others ban plugins.
-- /rangeban &lt;ip1-ip2> [reason] - Bans the IP range from ip1 to ip2 for the supplied reason.
-- /temprangeban &lt;ip1-ip2> &lt;time> &lt;hours/min/sec> [reason] - Temporary variant of above
-- /unrangeban &lt;ip> - Removes any RangeBan which overlaps with the given IP. Eg, if 127.0.0.1-127.0.0.5 is banned, unbanning 127.0.0.3 will lift the whole ban on 127.0.0.1-127.0.0.5.
-Almost any command may have -s added in it to prevent announcing it, for example: 
-- /tempban NewGuy101 -s 1 hour MaxBans is Awesome!
+## 🗄️ Banco de Dados
 
-- Nobody will see the announcement that NewGuy101 was temp banned, just the fact he "has left the game."
+| Tipo | Suporte |
+|------|---------|
+| 🐬 MySQL | ✅ |
+| 📁 SQLite (arquivo local) | ✅ |
 
-If you want an in-depth analysis of each command, try here:
-http://dev.bukkit.org/server-mods/maxbans/pages/command-tutorial/
+---
 
-Permissions
-=======
+## ✨ Funcionalidades
 
-All permissions are maxbans.<commandName>, with the following exceptions:
-Lockdown on/off: maxbans.lockdown.use
-Lockdown bypass: maxbans.lockdown.bypass
-Kick all (/kick *): maxbans.kick.*
-Notification: maxbans.notify. This is for when the DNSBL discovers a proxy, or a banned player tries to join.
-Check your own warnings/mutes: maxbans.checkban.self
-See silent commands (Eg commands with -s in them): maxbans.seesilent
-See broadcasts, such as kick messages of others: maxbans.seebroadcast
-Configuration Guide
+| # | Funcionalidade |
+|---|----------------|
+| 1 | 🔒 **Lockdown total do servidor** — impede qualquer jogador de entrar com uma mensagem personalizada (ideal contra ataques de bots) |
+| 2 | 🔤 **Autocompletar nomes** — funciona mesmo com jogadores offline |
+| 3 | ⚠️ **Sistema de advertências** — com ações automáticas configuráveis |
+| 4 | 🔍 **Detecção de IPs duplicados** — identifica contas alternativas |
+| 5 | 🌐 **Consulta DNSBL** — bloqueia proxies automaticamente |
+| 6 | 📜 **Mensagens de kick em múltiplas linhas** — sem cortes na tela |
+| 7 | 🔔 **Notificações** — avisa a staff quando um banido tenta entrar |
+| 8 | ⏱️ **Tempos relativos** — exibe "banido por 4 minutos e 6 segundos" ao invés de um horário absoluto |
+| 9 | 🎨 **Cores totalmente personalizáveis** — cada mensagem do seu jeito |
+| 10 | 🚫 **Bloqueio de comandos durante mute** — impede o uso de `/me`, `/say` e outros |
 
-http://dev.bukkit.org/server-mods/maxbans/pages/config-tutorial/
+---
 
-This is an in-depth guide on how to configure MaxBans :) If I've missed anything, ask in the comments at http://dev.bukkit.org/bukkit-plugins/maxbans/
+## 🎮 Comandos
 
-Common Issues
-=======
+### 🔨 Banimentos
 
-http://dev.bukkit.org/server-mods/maxbans/pages/common-issues/
+| Comando | Descrição |
+|---------|-----------|
+| `/ban <jogador\|IP> <motivo>` | Bane um jogador permanentemente |
+| `/unban <jogador\|IP>` | Remove o banimento de um jogador ou IP |
+| `/tempban <jogador\|IP> <tempo> <formato> <motivo>` | Banimento temporário |
+| `/ipban <jogador\|IP> <motivo>` | Banimento por IP |
+| `/tempipban <jogador\|IP> <tempo> <formato> <motivo>` | Banimento temporário por IP |
+| `/rangeban <IP1-IP2> [motivo]` | Bane um intervalo de IPs |
+| `/temprangeban <IP1-IP2> <tempo> <formato> [motivo]` | Banimento temporário por range de IP |
+| `/unrangeban <IP>` | Remove qualquer range ban que inclua o IP informado |
 
-This is a list of common issues people have with MaxBans, such as plugin conflicts.
+### 🔇 Mutes
 
-Check out this guy's work for an amazing webpage setup to view MaxBans while using MySQL. Link: http://yive.me/maxbans/. I haven't personally set it up, but the page looks quite sleek and well done!
+| Comando | Descrição |
+|---------|-----------|
+| `/mute <jogador>` | Silencia ou dessilencia um jogador |
+| `/unmute <jogador>` | Remove o silêncio de um jogador |
+| `/tempmute <jogador> <tempo> <formato>` | Silencia temporariamente |
 
-GeoIP Lookup
-=======
+### ⚠️ Advertências
 
-MaxBans will download a GeoIP.csv file, which allows it to look up the country of origin for IP addresses. The file is approx. 1.7MB and is downloaded from http://maxgamer.org/plugins/maxbans/geoip.csv automatically on the first run. The file is only downloaded once (Unless it is renamed/removed).
+| Comando | Descrição |
+|---------|-----------|
+| `/warn <jogador> <motivo>` | Dá uma advertência ao jogador |
+| `/unwarn <jogador>` | Remove a advertência mais recente |
+| `/clearwarnings <jogador>` | Limpa todas as advertências |
+
+### 🔎 Consultas
+
+| Comando | Descrição |
+|---------|-----------|
+| `/checkban <jogador\|IP>` | Exibe o status de banimento |
+| `/checkip <jogador>` | Exibe o IP do jogador |
+| `/dupeip <jogador\|IP>` | Lista contas com o mesmo IP |
+| `/history [jogador] [registros]` | Exibe histórico de bans, kicks e mutes |
+
+### 🛠️ Administração
+
+| Comando | Descrição |
+|---------|-----------|
+| `/kick <jogador\|*> [motivo]` | Expulsa um jogador (use `*` para todos) |
+| `/lockdown [motivo]` | Ativa/desativa o lockdown do servidor |
+| `/forcespawn <jogador>` | Teleporta ao spawn (2x, para invalidar o `/back`) |
+| `/mbwhitelist <jogador>` | Permite que o jogador ignore banimentos por IP |
+| `/immune <jogador> <true\|false>` | Concede ou remove imunidade a punições |
+| `/mbreload` | Recarrega o plugin completamente |
+| `/mbimport` | Importa banimentos de outros plugins/formatos |
+| `/mbexport` | Exporta banimentos para vanilla, MySQL ou SQLite |
+| `/mbdebug File\|Chat\|Console` | Exibe informações de depuração |
+
+> 💡 **Dica:** Adicione `-s` em qualquer comando para executá-lo silenciosamente, sem anunciar para os jogadores.  
+> Exemplo: `/tempban Jogador123 -s 1 hour Motivo` — o jogador sai sem nenhum anúncio visível.
+
+---
+
+## 🔐 Permissões
+
+Todas as permissões seguem o padrão `maxbans.<nomeDoComando>`, com as seguintes exceções:
+
+| Permissão | Descrição |
+|-----------|-----------|
+| `maxbans.lockdown.use` | Usar `/lockdown on\|off` |
+| `maxbans.lockdown.bypass` | Entrar no servidor durante lockdown |
+| `maxbans.kick.*` | Usar `/kick *` (expulsar todos) |
+| `maxbans.notify` | Receber notificações de proxy/banido tentando entrar |
+| `maxbans.checkban.self` | Ver seus próprios banimentos e advertências |
+| `maxbans.seesilent` | Ver comandos silenciosos usados por outros |
+| `maxbans.seebroadcast` | Ver anúncios de kick/ban de outros (padrão: true) |
+
+---
+
+## ⚙️ Dependências
+
+- **CraftBukkit** ou **Spigot** (disponíveis online)
+- Bibliotecas incluídas na pasta `libs/`
+
+---
+
+## 🧱 Build com Gradle (IntelliJ)
+
+Este projeto está configurado como **Gradle (módulo único)**:
+
+- Projeto raiz: `paragonn-bans`
+- Fontes Java: `main/java/src`
+- Recursos: `main/java/resources`
+
+### Importar no IntelliJ IDEA
+
+1. `File > Open...`
+2. Selecione a pasta raiz do repositório
+3. Confirme a importação como projeto **Gradle**
+4. Aguarde o sync baixar as dependências
+
+### Comandos úteis
+
+- Build: `./gradlew build`
+- Gerar JAR: `./gradlew jar`
+
+---
+
+## 🌍 GeoIP
+
+O Paragonn Bans baixa automaticamente um arquivo `GeoIP.csv` (~1.7MB) na primeira execução, permitindo identificar o país de origem dos endereços IP. O arquivo é baixado apenas uma vez e fica em cache até ser removido manualmente.
+
+---
+
+## 🙏 Créditos
+
+Este plugin é baseado no **PBans**, desenvolvido originalmente por:
+
+| Autor | Papel |
+|-------|-------|
+| **Netherfoam** | Criador original do PBans |
+| **Darekfive** | Contribuidor |
+| **FabioZumbi12** | Contribuidor |
+
+> O projeto **Paragonn Bans** é uma adaptação do PBans, com traduções, melhorias e otimizações realizadas para o ambiente do Paragonn Network.
+
+---
+
+<div align="center">
+
+Feito com ❤️ para o **Paragonn Network**
+
+</div>

@@ -1,0 +1,209 @@
+name: paragonn-bans
+version: 2.7 #Release
+main: studios.paragonn.bans.PBans
+authors: [Darekfive, Netherfoam, FabioZumbi12, neveshardd]
+
+soft-depend: [HeroChat]
+
+description: "Um plugin de banimento sólido e leve!"
+website: http://paragonn.com.br
+
+permissions:
+    maxbans.ban:
+        description: Permite que um jogador bana outros.
+        default: op
+    maxbans.unban:
+        description: Permite que um jogador desbana outros.
+        default: op
+    maxbans.tempban:
+        description: Permite que um jogador bana outros temporariamente.
+        default: op
+    maxbans.tempipban:
+        description: Permite que um jogador bana o IP de outros temporariamente.
+        default: op
+    maxbans.ipban:
+        description: Permite que um jogador bana o IP de outros.
+        default: op
+    maxbans.immune:
+        description: Permite que um jogador conceda/remova imunidade administrativa a punições.
+        default: op
+    maxbans.mute:
+        description: Permite que um jogador silencie/dessilencie outros.
+        default: op
+    maxbans.unmute:
+        description: Permite que um jogador dessilencie outros.
+        default: op
+    maxbans.tempmute:
+        description: Permite que um jogador silencie outros temporariamente.
+        default: op
+    maxbans.checkban:
+        description: Permite que um jogador verifique informações de banimento de outros.
+        default: op
+    maxbans.checkban.self:
+        description: Permite que um jogador verifique suas próprias informações de banimento (e advertências).
+        default: true
+    maxbans.checkip:
+        descriptions: Permite que um jogador consulte o endereço IP de outro jogador.
+        default: op
+    maxbans.dupeip:
+        description: Permite que um jogador verifique outras contas que usam o mesmo endereço IP.
+        default: op
+    maxbans.warn:
+        description: Permite que um jogador dê advertências a outros.
+        default: op
+    maxbans.unwarn:
+        description: Remove a advertência mais recente de um jogador.
+        default: op
+    maxbans.clearwarnings:
+        description: Permite que um jogador delete todas as advertências de outro jogador.
+        default: op
+    maxbans.kick:
+        description: Permite que um jogador expulse outros com um motivo.
+        default: op
+    maxbans.whitelist:
+        description: Permite que um jogador use o comando /mbwhitelist.
+        default: op
+    maxbans.lockdown.use:
+        description: Permite que um jogador use /lockdown on|off.
+        default: op
+    maxbans.lockdown.bypass:
+        description: Permite que um jogador entre no servidor quando o lockdown estiver ativo.
+        default: op
+    maxbans.history:
+        description: Permite que o jogador use /history para ver alterações recentes do PBans.
+        default: op
+    maxbans.forcespawn:
+        description: Permite que um jogador use /forcespawn em outro jogador, teleportando-o ao spawn.
+        default: op
+    maxbans.reload:
+        description: Permite que um jogador use /mbreload, recarregando o PBans completamente.
+        default: op
+    maxbans.import:
+        description: Permite que um jogador use /mbimport para importar banimentos.
+        default: op
+    maxbans.export:
+        description: Permite que um jogador use /mbexport para exportar banimentos.
+        default: op
+    maxbans.seesilent:
+        description: Permite que um jogador veja outros jogadores usando comandos de ban silencioso.
+        default: op
+    maxbans.seebroadcast:
+        description: Permite que um jogador veja outros jogadores usando comandos de ban normais (não silenciosos).
+        default: true
+
+commands:
+    uuid:
+        description: Obtém o UUID de um jogador.
+        usage: /uuid <player>
+        aliases: [mbuuid]
+    togglechat:
+        description: Ativa ou desativa o chat.
+        usage: /togglechat
+        aliases: [mbtogglechat]
+    ban:
+        description: Bane um jogador permanentemente.
+        usage: /ban <player|IP> [-s] <reason>
+        aliases: [mbban]
+    unban:
+        description: Desbane um jogador, incluindo bans por IP.
+        usage: /unban <player|IP>
+        aliases: [mbunban]
+    tempban:
+        description: Bane um jogador temporariamente.
+        usage: /tempban <player|IP> <time> <timeform> [-s] <reason>
+        aliases: [mbtempban]
+    tempipban:
+        description: Bane temporariamente o IP de um jogador.
+        usage: /tempipban <player|IP> <time> <timeform> [-s] <reason>
+        aliases: [mbtempipban]
+    ipban:
+        description: Bane o IP de um jogador.
+        usage: /ipban <player|IP> [-s] <reason>
+        aliases: [mbipban]
+    mute:
+        description: Alterna o status de silêncio de um jogador.
+        usage: /mute <player>
+        aliases: [mbmute]
+    unmute:
+        description: Remove o silêncio de um jogador.
+        usage: /unmute <player>
+        aliases: [mbunmute]
+    tempmute:
+        description: Silencia um jogador temporariamente.
+        usage: /tempmute <player> <time> <timeform>
+        aliases: [mbtempmute]
+    checkban:
+        description: Exibe o status de banimento de um jogador ou IP.
+        usage: /checkban <player|IP>
+        aliases: [mbcheckban]
+    checkip:
+        description: Exibe o endereço IP de um jogador.
+        usage: /checkip <player>
+        aliases: [mbcheckip]
+    dupeip:
+        description: Exibe todos os jogadores com o mesmo IP.
+        usage: /dupeip <player|IP>
+        aliases: [mbdupeip]
+    warn:
+        description: Adverte um jogador.
+        usage: /warn <player> [reason]
+        aliases: [mbwarn]
+    unwarn:
+        description: Remove a advertência mais recente de um jogador.
+        usage: /unwarn <player>
+        aliases: [mbunwarn]
+    clearwarnings:
+        description: Limpa o histórico de advertências de um jogador.
+        usage: /clearwarnings <player>
+        aliases: [mbclearwarnings]
+    kick:
+        description: Expulsa um jogador do servidor.
+        usage: /kick <player> [reason]
+        aliases: [mbkick]
+    lockdown:
+        description: Impede que qualquer pessoa sem maxbans.lockdown.bypass entre no servidor.
+        usage: /lockdown [reason]
+        aliases: [mblockdown]
+    history:
+        description: Exibe banimentos e outras ações recentes.
+        usage: /history [name] [records]
+        aliases: [mbhistory]
+    forcespawn:
+        description: Teleporta um jogador ao spawn.
+        usage: /forcespawn <player>
+        aliases: [mbforcespawn]
+    mbreload:
+        description: Recarrega o PBans completamente.
+        usage: /mbreload
+    mb:
+        description: Exibe os comandos do PBans que você tem acesso.
+        usage: /mb
+        aliases: [maxbans]
+    mbimport:
+        description: Importa um conjunto de banimentos.
+        usage: /mbimport nameOfPlugin
+    mbexport:
+        description: Exporta um conjunto de banimentos, permitindo também exportar para outro banco de dados.
+        usage: /mbexport nameOfPlugin
+    mbdebug:
+        description: Exibe informações de depuração no Console/Arquivo/Chat.
+        usage: /mbdebug File|Chat|Console
+    rangeban:
+        description: Bane intervalos de IP.
+        usage: /rangeban <IP1-IP2> [Reason]
+        aliases: [mbrangeban, rb]
+    temprangeban:
+        description:
+        usage: /temprangeban <IP1-IP2> <time> <timeform> [Reason]
+        aliases: [mbtemprangeban, temprb]
+    unrangeban:
+        description: Desbane um intervalo de IP. O IP informado só precisa estar dentro do intervalo.
+        usage: /unrangeban <IP>
+        aliases: [mbunrangeban, unrb]
+    mbwhitelist:
+        description: Comando de whitelist, permitindo que jogadores ignorem bans por IP (não bans normais).
+        usage: /mbwhitelist <user>
+    immune:
+        description: Concede ou remove imunidade a punições para um jogador.
+        usage: /immune <user> <true|false>
+        aliases: [mbimmune]

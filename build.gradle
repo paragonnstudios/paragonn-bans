@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'idea'
+}
+
+group = 'studios.paragonn'
+version = '2.7.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    withSourcesJar()
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        name = 'spigot-repo'
+        url = uri('https://hub.spigotmc.org/nexus/content/groups/public/')
+    }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
+
+    // Dependencias locais opcionais mantidas para compatibilidade.
+    if (file('libs/Herochat.jar').exists()) {
+        compileOnly files('libs/Herochat.jar')
+    }
+    if (file('libs/DynamicBan.jar').exists()) {
+        compileOnly files('libs/DynamicBan.jar')
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['main/java/src']
+        }
+        resources {
+            srcDirs = ['main/java/resources']
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 8
+}
+
+jar {
+    archiveBaseName = 'paragonn-bans'
+    archiveVersion = ''
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
