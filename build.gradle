@@ -85,6 +85,14 @@ jar {
     archiveVersion = ''
 }
 
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
 idea {
     module {
         downloadJavadoc = true
