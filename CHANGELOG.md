@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.2](https://github.com/paragonnstudios/paragonn-bans/compare/v2.7.1...v2.7.2) (2026-08-03)
+
+
+### Bug Fixes
+
+* **build:** injetar versao real no plugin.yml ([d046c04](https://github.com/paragonnstudios/paragonn-bans/commit/d046c049847a6f54632243d0ab9e3ec5047ae8c0))
+
 ## [2.7.1](https://github.com/paragonnstudios/paragonn-bans/compare/v2.7.0...v2.7.1) (2026-08-02)
 
 
